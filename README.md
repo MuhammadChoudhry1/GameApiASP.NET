@@ -205,3 +205,51 @@ Here are some neat things that make this API special:
 I built this API to be simple, fun, and actually useful. Whether you're learning web development, need a quick way to manage game data, or just want to play around with a REST API, this should do the trick!
 
 Got questions? Found a bug? Want to suggest improvements? Feel free to dive into the code and make it your own. Happy coding! 🚀
+
+## 📋 How to Run This Project (If You Cloned It)
+
+Just cloned this repository? Awesome! Here's how to get it up and running in no time:
+
+### Prerequisites
+- **.NET 9.0 SDK** - Download from [Microsoft's website](https://dotnet.microsoft.com/download/dotnet/9.0) if you don't have it
+- **Git** (obviously, since you cloned it!)
+
+### Quick Start Guide
+
+1. **Open your terminal/command prompt** and navigate to the project folder:
+   ```bash
+   cd path/to/GameApiASP.NET
+   ```
+
+2. **Restore the NuGet packages** (this downloads all the dependencies):
+   ```bash
+   dotnet restore
+   ```
+
+3. **Run the application**:
+   ```bash
+   dotnet run
+   ```
+
+4. **That's it!** 🎉 The API will start running and you'll see something like:
+   ```
+   Now listening on: http://localhost:5088
+   Application started. Press Ctrl+C to shut down.
+   ```
+
+### Where to Go Next
+
+Once it's running, open your browser and visit:
+- **Main Interface**: http://localhost:5088
+- **API Documentation**: http://localhost:5088/swagger
+- **Health Check**: http://localhost:5088/health
+
+### Troubleshooting
+
+**Getting an error?** Here are the most common fixes:
+
+- **Make sure you have .NET 9.0 SDK installed**: Run `dotnet --version` to check
+- **Port already in use?** The app will usually pick a different port automatically
+- **Permission issues?** Try running your terminal as administrator (Windows) or with `sudo` (Mac/Linux)
+
+**Still having issues?** Open an issue on the GitHub repository and I'll help you out!
