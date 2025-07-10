@@ -1,0 +1,62 @@
+[
+  {
+    "id": 2,
+    "name": "Red Dead Redemption 2",
+    "genre": "Action-Adventure",
+    "platform": "PlayStation 4",
+    "price": 49.99,
+    "developer": "Rockstar Games",
+    "publisher": "Rockstar Games",
+    "releaseDate": "2018-10-26T00:00:00Z",
+    "description": "An epic tale of life in America\u0027s unforgiving heartland, featuring a vast and atmospheric world where your choices matter.",
+    "rating": 9.8
+  },
+  {
+    "id": 3,
+    "name": "Cyberpunk 2077",
+    "genre": "RPG",
+    "platform": "PC",
+    "price": 39.99,
+    "developer": "CD Projekt Red",
+    "publisher": "CD Projekt",
+    "releaseDate": "2020-12-10T00:00:00Z",
+    "description": "An open-world, action-adventure story set in Night City, a megalopolis obsessed with power, glamour and body modification.",
+    "rating": 7.8
+  },
+  {
+    "id": 4,
+    "name": "God of War",
+    "genre": "Action-Adventure",
+    "platform": "PlayStation 4",
+    "price": 29.99,
+    "developer": "Santa Monica Studio",
+    "publisher": "Sony Interactive Entertainment",
+    "releaseDate": "2018-04-20T00:00:00Z",
+    "description": "A new beginning for Kratos as he embarks on an emotional journey with his son Atreus through the Norse realms.",
+    "rating": 9.5
+  },
+  {
+    "id": 5,
+    "name": "Minecraft",
+    "genre": "Sandbox",
+    "platform": "Multi-platform",
+    "price": 26.95,
+    "developer": "Mojang Studios",
+    "publisher": "Microsoft Studios",
+    "releaseDate": "2011-11-18T00:00:00Z",
+    "description": "A sandbox game that allows players to build, explore, and survive in a blocky, procedurally generated world.",
+    "rating": 9
+  },
+  {
+    "id": 6,
+    "name": "My New Game",
+    "genre": "Action",
+    "platform": "PC",
+    "price": 29.99,
+    "developer": "Indie Studio",
+    "publisher": "Self Published",
+    "releaseDate": "2025-07-18T00:00:00",
+    "description": "An amazing new game",
+    "rating": 8
+  }
+]

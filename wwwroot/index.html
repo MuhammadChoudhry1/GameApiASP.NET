@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Store API - Test Interface</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fafafa;
+        }
+        .section h2 {
+            color: #555;
+            margin-top: 0;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        textarea {
+            height: 80px;
+            resize: vertical;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .delete-btn {
+            background-color: #dc3545;
+        }
+        .delete-btn:hover {
+            background-color: #c82333;
+        }
+        .update-btn {
+            background-color: #28a745;
+        }
+        .update-btn:hover {
+            background-color: #218838;
+        }
+        .games-list {
+            margin-top: 20px;
+        }
+        .game-card {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+        .game-card h3 {
+            margin: 0 0 10px 0;
+            color: #333;
+        }
+        .game-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .response {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+            margin-top: 10px;
+            white-space: pre-wrap;
+            font-family: monospace;
+            font-size: 12px;
+        }
+        .success {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+        }
+        .error {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+        }
+        .api-info {
+            background-color: #e3f2fd;
+            border: 1px solid #bbdefb;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        .api-info h3 {
+            color: #1976d2;
+            margin-top: 0;
+        }
+        .api-info ul {
+            margin: 10px 0;
+        }
+        .api-info li {
+            margin: 5px 0;
+        }
+        .row {
+            display: flex;
+            gap: 10px;
+        }
+        .col {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎮 Game Store API Test Interface</h1>
+        
+        <div class="api-info">
+            <h3>API Information</h3>
+            <p><strong>Base URL:</strong> <span id="baseUrl">http://localhost:5088</span></p>
+            <p><strong>Swagger Documentation:</strong> <a href="http://localhost:5088/swagger" target="_blank">Open Swagger UI</a></p>
+            <p><strong>Available Endpoints:</strong></p>
+            <ul>
+                <li>GET /api/games - Get all games</li>
+                <li>GET /api/games/{id} - Get game by ID</li>
+                <li>POST /api/games - Create new game</li>
+                <li>PUT /api/games/{id} - Update game</li>
+                <li>DELETE /api/games/{id} - Delete game</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>📥 Get All Games</h2>
+            <button onclick="getAllGames()">Get All Games</button>
+            <div id="allGamesResponse" class="response"></div>
+            <div id="gamesList" class="games-list"></div>
+        </div>
+
+        <div class="section">
+            <h2>🔍 Get Game by ID</h2>
+            <div class="form-group">
+                <label for="getGameId">Game ID:</label>
+                <input type="number" id="getGameId" placeholder="Enter game ID">
+            </div>
+            <button onclick="getGameById()">Get Game</button>
+            <div id="getGameResponse" class="response"></div>
+        </div>
+
+        <div class="section">
+            <h2>➕ Create New Game</h2>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="createName">Name:</label>
+                        <input type="text" id="createName" placeholder="Game name">
+                    </div>
+                    <div class="form-group">
+                        <label for="createGenre">Genre:</label>
+                        <input type="text" id="createGenre" placeholder="Game genre">
+                    </div>
+                    <div class="form-group">
+                        <label for="createPlatform">Platform:</label>
+                        <input type="text" id="createPlatform" placeholder="Platform">
+                    </div>
+                    <div class="form-group">
+                        <label for="createPrice">Price:</label>
+                        <input type="number" id="createPrice" step="0.01" placeholder="Price">
+                    </div>
+                    <div class="form-group">
+                        <label for="createDeveloper">Developer:</label>
+                        <input type="text" id="createDeveloper" placeholder="Developer">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="createPublisher">Publisher:</label>
+                        <input type="text" id="createPublisher" placeholder="Publisher">
+                    </div>
+                    <div class="form-group">
+                        <label for="createReleaseDate">Release Date:</label>
+                        <input type="date" id="createReleaseDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="createRating">Rating (0-10):</label>
+                        <input type="number" id="createRating" step="0.1" min="0" max="10" placeholder="Rating">
+                    </div>
+                    <div class="form-group">
+                        <label for="createDescription">Description:</label>
+                        <textarea id="createDescription" placeholder="Game description"></textarea>
+                    </div>
+                </div>
+            </div>
+            <button onclick="createGame()">Create Game</button>
+            <div id="createGameResponse" class="response"></div>
+        </div>
+
+        <div class="section">
+            <h2>✏️ Update Game</h2>
+            <div class="form-group">
+                <label for="updateId">Game ID to Update:</label>
+                <input type="number" id="updateId" placeholder="Enter game ID">
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="updateName">Name:</label>
+                        <input type="text" id="updateName" placeholder="Game name">
+                    </div>
+                    <div class="form-group">
+                        <label for="updateGenre">Genre:</label>
+                        <input type="text" id="updateGenre" placeholder="Game genre">
+                    </div>
+                    <div class="form-group">
+                        <label for="updatePlatform">Platform:</label>
+                        <input type="text" id="updatePlatform" placeholder="Platform">
+                    </div>
+                    <div class="form-group">
+                        <label for="updatePrice">Price:</label>
+                        <input type="number" id="updatePrice" step="0.01" placeholder="Price">
+                    </div>
+                    <div class="form-group">
+                        <label for="updateDeveloper">Developer:</label>
+                        <input type="text" id="updateDeveloper" placeholder="Developer">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="updatePublisher">Publisher:</label>
+                        <input type="text" id="updatePublisher" placeholder="Publisher">
+                    </div>
+                    <div class="form-group">
+                        <label for="updateReleaseDate">Release Date:</label>
+                        <input type="date" id="updateReleaseDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="updateRating">Rating (0-10):</label>
+                        <input type="number" id="updateRating" step="0.1" min="0" max="10" placeholder="Rating">
+                    </div>
+                    <div class="form-group">
+                        <label for="updateDescription">Description:</label>
+                        <textarea id="updateDescription" placeholder="Game description"></textarea>
+                    </div>
+                </div>
+            </div>
+            <button class="update-btn" onclick="updateGame()">Update Game</button>
+            <div id="updateGameResponse" class="response"></div>
+        </div>
+
+        <div class="section">
+            <h2>🗑️ Delete Game</h2>
+            <div class="form-group">
+                <label for="deleteGameId">Game ID to Delete:</label>
+                <input type="number" id="deleteGameId" placeholder="Enter game ID">
+            </div>
+            <button class="delete-btn" onclick="deleteGame()">Delete Game</button>
+            <div id="deleteGameResponse" class="response"></div>
+        </div>
+    </div>
+
+    <script>
+        const baseUrl = 'http://localhost:5088/api/games';
+        
+        async function makeRequest(url, method = 'GET', data = null) {
+            try {
+                const options = {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                };
+                
+                if (data) {
+                    options.body = JSON.stringify(data);
+                }
+                
+                const response = await fetch(url, options);
+                const responseData = await response.text();
+                
+                return {
+                    ok: response.ok,
+                    status: response.status,
+                    data: responseData ? JSON.parse(responseData) : null
+                };
+            } catch (error) {
+                return {
+                    ok: false,
+                    status: 0,
+                    error: error.message
+                };
+            }
+        }
+        
+        function displayResponse(elementId, response) {
+            const element = document.getElementById(elementId);
+            if (response.ok) {
+                element.className = 'response success';
+                element.textContent = JSON.stringify(response.data, null, 2);
+            } else {
+                element.className = 'response error';
+                element.textContent = response.error || `Error ${response.status}: ${JSON.stringify(response.data, null, 2)}`;
+            }
+        }
+        
+        async function getAllGames() {
+            const response = await makeRequest(baseUrl);
+            displayResponse('allGamesResponse', response);
+            
+            if (response.ok && response.data) {
+                displayGamesList(response.data);
+            }
+        }
+        
+        function displayGamesList(games) {
+            const gamesList = document.getElementById('gamesList');
+            gamesList.innerHTML = '';
+            
+            games.forEach(game => {
+                const gameCard = document.createElement('div');
+                gameCard.className = 'game-card';
+                gameCard.innerHTML = `
+                    <h3>${game.name} (ID: ${game.id})</h3>
+                    <div class="game-info">
+                        <div><strong>Genre:</strong> ${game.genre}</div>
+                        <div><strong>Platform:</strong> ${game.platform}</div>
+                        <div><strong>Price:</strong> $${game.price}</div>
+                        <div><strong>Developer:</strong> ${game.developer}</div>
+                        <div><strong>Publisher:</strong> ${game.publisher}</div>
+                        <div><strong>Release Date:</strong> ${new Date(game.releaseDate).toLocaleDateString()}</div>
+                        <div><strong>Rating:</strong> ${game.rating}/10</div>
+                    </div>
+                    <div><strong>Description:</strong> ${game.description}</div>
+                `;
+                gamesList.appendChild(gameCard);
+            });
+        }
+        
+        async function getGameById() {
+            const id = document.getElementById('getGameId').value;
+            if (!id) {
+                alert('Please enter a game ID');
+                return;
+            }
+            
+            const response = await makeRequest(`${baseUrl}/${id}`);
+            displayResponse('getGameResponse', response);
+        }
+        
+        async function createGame() {
+            const game = {
+                name: document.getElementById('createName').value,
+                genre: document.getElementById('createGenre').value,
+                platform: document.getElementById('createPlatform').value,
+                price: parseFloat(document.getElementById('createPrice').value) || 0,
+                developer: document.getElementById('createDeveloper').value,
+                publisher: document.getElementById('createPublisher').value,
+                releaseDate: document.getElementById('createReleaseDate').value,
+                rating: parseFloat(document.getElementById('createRating').value) || 0,
+                description: document.getElementById('createDescription').value
+            };
+            
+            if (!game.name) {
+                alert('Please enter a game name');
+                return;
+            }
+            
+            const response = await makeRequest(baseUrl, 'POST', game);
+            displayResponse('createGameResponse', response);
+            
+            if (response.ok) {
+                // Clear form
+                document.getElementById('createName').value = '';
+                document.getElementById('createGenre').value = '';
+                document.getElementById('createPlatform').value = '';
+                document.getElementById('createPrice').value = '';
+                document.getElementById('createDeveloper').value = '';
+                document.getElementById('createPublisher').value = '';
+                document.getElementById('createReleaseDate').value = '';
+                document.getElementById('createRating').value = '';
+                document.getElementById('createDescription').value = '';
+                
+                // Refresh games list
+                getAllGames();
+            }
+        }
+        
+        async function updateGame() {
+            const id = document.getElementById('updateId').value;
+            if (!id) {
+                alert('Please enter a game ID');
+                return;
+            }
+            
+            const game = {
+                name: document.getElementById('updateName').value,
+                genre: document.getElementById('updateGenre').value,
+                platform: document.getElementById('updatePlatform').value,
+                price: parseFloat(document.getElementById('updatePrice').value) || 0,
+                developer: document.getElementById('updateDeveloper').value,
+                publisher: document.getElementById('updatePublisher').value,
+                releaseDate: document.getElementById('updateReleaseDate').value,
+                rating: parseFloat(document.getElementById('updateRating').value) || 0,
+                description: document.getElementById('updateDescription').value
+            };
+            
+            if (!game.name) {
+                alert('Please enter a game name');
+                return;
+            }
+            
+            const response = await makeRequest(`${baseUrl}/${id}`, 'PUT', game);
+            displayResponse('updateGameResponse', response);
+            
+            if (response.ok) {
+                // Refresh games list
+                getAllGames();
+            }
+        }
+        
+        async function deleteGame() {
+            const id = document.getElementById('deleteGameId').value;
+            if (!id) {
+                alert('Please enter a game ID');
+                return;
+            }
+            
+            if (!confirm(`Are you sure you want to delete game with ID ${id}?`)) {
+                return;
+            }
+            
+            const response = await makeRequest(`${baseUrl}/${id}`, 'DELETE');
+            displayResponse('deleteGameResponse', response);
+            
+            if (response.ok) {
+                document.getElementById('deleteGameId').value = '';
+                // Refresh games list
+                getAllGames();
+            }
+        }
+        
+        // Load games on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            getAllGames();
+        });
+    </script>
+</body>
+</html>
